@@ -1,0 +1,188 @@
+.login-page {
+  align-items: center;
+  background:
+    radial-gradient(
+      ellipse at top left,
+      rgb(59 130 246 / 10%),
+      transparent 42%
+    ),
+    var(--theme-background);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.login-card {
+  background: var(--theme-surface);
+  border: 1px solid var(--theme-border);
+  border-radius: 1.25rem;
+  box-shadow: 0 1.5rem 4rem rgb(15 23 42 / 10%);
+  box-sizing: border-box;
+  max-width: 28rem;
+  padding: 2.5rem;
+  width: 100%;
+}
+
+.brand {
+  color: #3b82f6;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  text-decoration: none;
+}
+
+.eyebrow {
+  color: #3b82f6;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin: 2rem 0 0.5rem;
+}
+
+h1 {
+  font-size: 1.8rem;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.intro,
+.register-prompt {
+  color: var(--theme-text);
+  line-height: 1.6;
+  opacity: 0.72;
+}
+
+.intro {
+  margin: 0.5rem 0 1.75rem;
+}
+
+form,
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  gap: 1rem;
+}
+
+.form-field {
+  gap: 0.45rem;
+}
+
+label {
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+input {
+  background: var(--theme-background);
+  border: 1px solid var(--theme-border);
+  border-radius: 0.65rem;
+  box-sizing: border-box;
+  color: var(--theme-text);
+  font-size: 1rem;
+  min-height: 2.9rem;
+  outline: none;
+  padding: 0.7rem 0.85rem;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  width: 100%;
+}
+
+input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgb(59 130 246 / 16%);
+}
+
+.field-error {
+  color: #dc2626;
+  font-size: 0.8rem;
+}
+
+button {
+  background: #2563eb;
+  border: 0;
+  border-radius: 0.65rem;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  min-height: 3rem;
+  margin-top: 0.35rem;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.register-prompt {
+  font-size: 0.9rem;
+  margin: 1.5rem 0 0;
+  text-align: center;
+}
+
+.register-prompt a {
+  color: #3b82f6;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.register-prompt a:hover {
+  text-decoration: underline;
+}
+
+.password-input {
+  position: relative;
+}
+
+.password-input input {
+  padding-right: 3rem;
+}
+
+.password-toggle {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--theme-text);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  min-height: 2.9rem;
+  opacity: 0.65;
+  padding: 0.5rem;
+  position: absolute;
+  right: 0.35rem;
+  top: 0;
+  transition: opacity 0.2s ease;
+}
+
+.form-field .password-toggle:hover:not(:disabled) {
+  background: transparent;
+  opacity: 1;
+  transform: none;
+}
+
+.password-toggle svg {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+@media (max-width: 30rem) {
+  .login-card {
+    padding: 1.75rem 1.25rem;
+  }
+}

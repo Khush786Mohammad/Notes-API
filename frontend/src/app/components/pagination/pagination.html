@@ -1,0 +1,82 @@
+<div class="pagination-container" [class.single-page]="totalPages <= 1">
+  <div class="result-per-page">
+    <label for="result-per-page">Results per page</label>
+    <select id="result-per-page" (change)="onOptionChange($event)">
+      @for (option of resultPerPageOptionList; track option) {
+        <option [value]="option">
+          {{ option }}
+        </option>
+      }
+    </select>
+  </div>
+  @if (totalPages > 1) {
+    <button
+      (click)="onPageChange(currentPage - 1)"
+      type="button"
+      id="previous-btn"
+      [disabled]="currentPage <= 1"
+    >
+      < Previous
+    </button>
+    @for (item of paginationItems; track $index) {
+      @if (item === 'ellipsis') {
+        <button class="disabled-btn" disabled aria-hidden="true">...</button>
+      } @else {
+        <button
+          (click)="onPageChange(item)"
+          [class.active-page]="currentPage == item"
+          [id]="'page' + item"
+          [disabled]="currentPage == item"
+        >
+          {{ item }}
+        </button>
+      }
+    }
+
+    <button
+      (click)="onPageChange(currentPage + 1)"
+      type="button"
+      id="next-btn"
+      [disabled]="currentPage >= totalPages"
+    >
+      Next >
+    </button>
+    <div class="go-to">
+      <form #cstPageForm="ngForm" (ngSubmit)="onSubmit(cstPageForm)">
+        <span>Page</span>
+        <input
+          type="number"
+          class="customPageNumberClass"
+          id="jumpToPage"
+          name="jumpTo"
+          [(ngModel)]="customPageNumber"
+          #jumpToPageVariable="ngModel"
+          min="1"
+          [max]="totalPages"
+          inputmode="numeric"
+          aria-describedby="jumpToPageError"
+          (keydown)="onCustomPageKeydown($event)"
+          (input)="onCustomPageInput($event)"
+        />
+        <span
+          type="submit"
+          style="cursor: pointer; user-select: none"
+          (click)="onSubmit(cstPageForm)"
+          >Go</span
+        >
+        @if (
+          jumpToPageVariable.invalid &&
+          (jumpToPageVariable.dirty || cstPageForm.submitted)
+        ) {
+          <span class="validation-error" id="jumpToPageError" role="alert">
+            @if (jumpToPageVariable.errors?.['min']) {
+              Page must be at least 1.
+            } @else if (jumpToPageVariable.errors?.['max']) {
+              Page must be {{ totalPages }} or less.
+            }
+          </span>
+        }
+      </form>
+    </div>
+  }
+</div>

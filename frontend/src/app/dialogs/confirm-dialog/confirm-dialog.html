@@ -1,0 +1,64 @@
+<div class="dialog-backdrop" (click)="dismissed.emit()">
+  <section
+    class="confirm-dialog"
+    role="alertdialog"
+    aria-modal="true"
+    aria-labelledby="confirm-title"
+    aria-describedby="confirm-description"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="dialog-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path
+          d="M12 8v4m0 4h.01M10.3 3.86 1.82 18.5A2 2 0 0 0 3.55 21h16.9a2 2 0 0 0 1.73-2.5L13.7 3.86a2 2 0 0 0-3.4 0Z"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+    @if (event() === 'logout') {
+      <h2 id="confirm-title">Logout</h2>
+      <p id="confirm-description">Are you sure you want to logout</p>
+      <div class="dialog-actions">
+        <button
+          type="button"
+          class="dialog-button cancel-button"
+          (click)="dismissed.emit()"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="dialog-button delete-button"
+          (click)="confirmedLogout.emit()"
+        >
+          Logout
+        </button>
+      </div>
+    } @else {
+      <h2 id="confirm-title">Delete this note?</h2>
+      <p id="confirm-description">
+        Are you sure you want to delete
+        <strong>“{{ noteTitle() }}”</strong>? This action cannot be undone.
+      </p>
+      <div class="dialog-actions">
+        <button
+          type="button"
+          class="dialog-button cancel-button"
+          (click)="dismissed.emit()"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="dialog-button delete-button"
+          (click)="confirmedDelete.emit()"
+        >
+          Delete note
+        </button>
+      </div>
+    }
+  </section>
+</div>

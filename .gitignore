@@ -1,28 +1,85 @@
-# Angular specific
-/dist/
-/out-tsc/
-/tmp/
-/coverage/
-/e2e/test-output/
-/.angular/
-.angular/
+# ==========================================================
+# Common .gitignore for note-api (Spring Boot backend + Angular frontend)
+# Patterns are NOT anchored with a leading "/" so they match
+# in any subfolder (e.g. backend/, frontend/).
+# ==========================================================
 
-# Node modules and dependency files
-/node_modules/
-/package-lock.json
-/yarn.lock
+# ---------- Backend: Maven / Spring Boot ----------
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
-# Environment files
-/.env
+# Gradle / generic build output
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-# Angular CLI and build artefacts
-/.angular-cli.json
-/.ng/
+# ---------- Frontend: Angular / Node ----------
+# Compiled output
+dist/
+tmp/
+out-tsc/
+bazel-out/
 
-# TypeScript cache
-*.tsbuildinfo
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
 
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Angular caches and misc
+.angular/cache
+.sass-cache/
+connect.lock
+coverage/
+libpeerconnection.log
+testem.log
+typings/
+__screenshots__/
+
+# ---------- Environment / secrets ----------
+.env
+.env.*
+!.env.example
+*.log
+
+# ---------- IDEs and editors ----------
+# STS / Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+.c9/
+*.launch
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# NetBeans
+nbproject/private/
+nbbuild/
+nbdist/
+.nb-gradle/
+
+# Sublime
+*.sublime-workspace
+
+# Visual Studio Code (keep shared config files)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+.history/*
+
+# ---------- System files ----------
+.DS_Store
+Thumbs.db

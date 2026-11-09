@@ -1,0 +1,43 @@
+:root {
+  --theme-background: #f8fafc;
+  --theme-navbar: #eef2f7;
+  --theme-surface: #ffffff;
+  --theme-text: #172033;
+  --theme-border: #cbd5e1;
+  --theme-muted: #e2e8f0;
+  --theme-toggle1: #000000;
+  --theme-toggle2: #ffffff;
+  font-family: 'Manrope', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+html.dark-mode {
+  --theme-background: #111827;
+  --theme-navbar: #1b2638;
+  --theme-surface: #1f2937;
+  --theme-text: #f8fafc;
+  --theme-border: #475569;
+  --theme-muted: #334155;
+  --theme-toggle1: #ffffff;
+  --theme-toggle2: #000000;
+}
+
+html,
+body {
+  background-color: var(--theme-background);
+  color: var(--theme-text);
+  margin: 0;
+  min-height: 100%;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}

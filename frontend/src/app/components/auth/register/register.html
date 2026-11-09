@@ -1,0 +1,210 @@
+<div class="registration-page">
+  @if (regsitering()) {
+    <section class="registration-card" aria-labelledby="registration-title">
+      <h1 id="registration-title">Create your account</h1>
+      <p class="intro">Sign up to start capturing and organizing your notes.</p>
+
+      <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+        <div class="form-field">
+          <label for="username">Username</label>
+          <input
+            id="username"
+            type="text"
+            name="username"
+            placeholder="Choose a username"
+            autocomplete="username"
+            #username="ngModel"
+            [(ngModel)]="authForm.username"
+            required
+            minlength="5"
+          />
+          @if (
+            username.invalid &&
+            username.touched &&
+            username?.hasError('required')
+          ) {
+            <small class="field-error">Please enter a username.</small>
+          } @else if (
+            username.invalid &&
+            username.touched &&
+            username?.hasError('minlength')
+          ) {
+            <small class="field-error"
+              >Username should be atleast 5 characters long.</small
+            >
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="email">Email address</label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            placeholder="john@gmail.com"
+            autocomplete="email"
+            #email="ngModel"
+            [(ngModel)]="authForm.email"
+            required
+            email
+          />
+          @if (email.invalid && email.touched) {
+            <small class="field-error">Enter a valid email address.</small>
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="password">Password</label>
+          <div class="password-input">
+            <input
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
+              name="password"
+              placeholder="Create a password"
+              autocomplete="new-password"
+              #password="ngModel"
+              [(ngModel)]="authForm.password"
+              required
+              minlength="8"
+            />
+            <button
+              class="password-toggle"
+              type="button"
+              [attr.aria-label]="
+                showPassword ? 'Hide password' : 'Show password'
+              "
+              [attr.aria-pressed]="showPassword"
+              (click)="showPassword = !showPassword"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" />
+                <circle cx="12" cy="12" r="3" />
+                @if (showPassword) {
+                  <path d="m3 3 18 18" />
+                }
+              </svg>
+            </button>
+          </div>
+          @if (
+            password.invalid &&
+            password.touched &&
+            password?.hasError('required')
+          ) {
+            <small class="field-error">Please enter a password.</small>
+          } @else if (
+            password.touched &&
+            password.invalid &&
+            password?.hasError('minlength')
+          ) {
+            <small class="field-error"
+              >Password should be at least 8 characters.</small
+            >
+          }
+        </div>
+
+        <div class="form-field">
+          <label for="confirm-password">Confirm password</label>
+          <div class="password-input">
+            <input
+              id="confirm-password"
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              name="confirmPassword"
+              placeholder="Enter your password again"
+              autocomplete="new-password"
+              #confirmPassword="ngModel"
+              [(ngModel)]="authForm.confirmPassword"
+              required
+            />
+            <button
+              class="password-toggle"
+              type="button"
+              [attr.aria-label]="
+                showConfirmPassword
+                  ? 'Hide confirm password'
+                  : 'Show confirm password'
+              "
+              [attr.aria-pressed]="showConfirmPassword"
+              (click)="showConfirmPassword = !showConfirmPassword"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" />
+                <circle cx="12" cy="12" r="3" />
+                @if (showConfirmPassword) {
+                  <path d="m3 3 18 18" />
+                }
+              </svg>
+            </button>
+          </div>
+          @if (confirmPassword.invalid && confirmPassword.touched) {
+            <small class="field-error">Please confirm your password.</small>
+          } @else if (
+            confirmPassword.touched &&
+            authForm.confirmPassword !== authForm.password
+          ) {
+            <small class="field-error">Passwords don't match.</small>
+          }
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="
+            registerForm.invalid ||
+            authForm.confirmPassword !== authForm.password ||
+            isLoading()
+          "
+        >
+          Create account
+        </button>
+      </form>
+
+      <p class="login-prompt">
+        Already have an account?
+        <a routerLink="/auth/login">Sign in</a>
+      </p>
+    </section>
+  } @else {
+    <section
+      class="registration-card registration-success"
+      aria-labelledby="registration-success-title"
+    >
+      <div class="success-icon" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m5 12 4 4L19 6" />
+        </svg>
+      </div>
+      <h2 id="registration-success-title">Account created successfully</h2>
+      <p class="success-message">
+        Your account is ready. You can now sign in and start organizing your
+        notes.
+      </p>
+      <p class="redirect-message">
+        Redirecting to sign in in
+        <span class="countdown">{{ countDown$ | async }}</span>
+        seconds
+      </p>
+    </section>
+  }
+</div>

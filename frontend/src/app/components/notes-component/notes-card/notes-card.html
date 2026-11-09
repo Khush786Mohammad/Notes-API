@@ -1,0 +1,17 @@
+<div class="note-card" (click)="selectNote()">
+  <div class="note-header">
+    <h3 class="note-title">{{ note.title }}</h3>
+    <button
+      type="button"
+      class="btn-delete"
+      (click)="deleteNote($event)"
+      title="Delete note"
+    >
+      ×
+    </button>
+  </div>
+  <p class="note-content">{{ note.content }}</p>
+  <div class="note-meta">
+    <small class="note-date">Created: {{ note.crtDt | date: 'short' }}</small>
+  </div>
+</div>

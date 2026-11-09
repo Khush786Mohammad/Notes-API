@@ -1,0 +1,123 @@
+:host {
+  box-sizing: border-box;
+}
+
+.pagination-container {
+  .result-per-page {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 8px;
+    color: var(--theme-text);
+    font-size: 13px;
+    white-space: nowrap;
+
+    & label {
+      opacity: 0.75;
+    }
+
+    & select {
+      box-sizing: border-box;
+      min-width: 64px;
+      height: 40px;
+      padding: 0 10px;
+      border: 1px solid var(--theme-border);
+      border-radius: 5px;
+      border: none;
+      background-color: var(--theme-surface);
+      color: var(--theme-text);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+    }
+
+    & select:focus-visible {
+      outline: 2px solid var(--theme-toggle1);
+      outline-offset: 2px;
+    }
+  }
+
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  font-weight: 600;
+
+  &.single-page {
+    justify-content: flex-start;
+  }
+
+  & button {
+    background-color: var(--theme-surface);
+    color: var(--theme-text);
+    cursor: pointer;
+    border: 1px solid gray;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 5px;
+  }
+
+  & #previous-btn:disabled,
+  & #next-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  & .disabled-btn {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .active-page {
+    color: var(--theme-toggle2);
+    background-color: var(--theme-toggle1);
+  }
+
+  .go-to form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    & .customPageNumberClass {
+      height: 16px;
+      width: 23px;
+      border: 1px solid var(--theme-toggle1);
+      background-color: var(--theme-surface);
+      color: var(--theme-text);
+      outline: none;
+      border-radius: 5px;
+      padding: 10px;
+      font-weight: 500;
+      font-size: 18px;
+    }
+
+    & button {
+      padding: 10px 12px;
+    }
+
+    & .validation-error {
+      color: #c62828;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+  }
+
+  /* Target Chrome, Safari, Edge, and Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Target Firefox */
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+}

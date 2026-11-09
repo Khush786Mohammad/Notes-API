@@ -1,0 +1,101 @@
+<nav class="navbar" aria-label="Main navigation">
+  <div class="logo">
+    <a class="navbar__brand">Notes API</a>
+  </div>
+  <div class="navbar-search">
+    <label for="search" class="visually-hidden">Search</label>
+    <input
+      type="text"
+      id="search"
+      class="search-box"
+      name="search"
+      placeholder="Search..."
+      [(ngModel)]="searchKey"
+      (ngModelChange)="onValueChanges()"
+    />
+    <span class="material-symbols-outlined" aria-hidden="true">search</span>
+  </div>
+  <div class="navbar-actions">
+    <div class="theme-mode">
+      <button
+        type="button"
+        [class.current-mode]="currentTheme === 'dark'"
+        id="light-mode"
+        aria-label="Switch to light mode"
+        (click)="setTheme('light')"
+      >
+        ☀️
+      </button>
+      <button
+        type="button"
+        [class.current-mode]="currentTheme === 'light'"
+        id="dark-mode"
+        aria-label="Switch to dark mode"
+        (click)="setTheme('dark')"
+      >
+        🌙
+      </button>
+    </div>
+    <div class="account-section">
+      <button type="button" class="user-profile" aria-label="User profile">
+        <svg
+          class="user-profile-icon"
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.75"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <circle cx="12" cy="8" r="4" />
+          <path
+            d="M4.5 21a7.5 7.5 0 0 1 15 0"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      @if (authService.user$ | async; as user) {
+        <div class="user-profile-dropdown">
+          <ul>
+            <li class="profile-name">{{ user.username }}</li>
+            <li class="profile-username">{{ user.email }}</li>
+            <li class="profile-session">
+              Session expires in:
+              <strong
+                [class.session-time-safe]="
+                  authService.remainingTimeStatus() === 'safe'
+                "
+                [class.session-time-warning]="
+                  authService.remainingTimeStatus() === 'warning'
+                "
+                [class.session-time-critical]="
+                  authService.remainingTimeStatus() === 'critical'
+                "
+                >{{ authService.remainingTime() }}</strong
+              >
+            </li>
+            <li>
+              <button
+                type="button"
+                class="profile-logout"
+                (click)="requestLogout()"
+              >
+                Logout
+              </button>
+            </li>
+          </ul>
+        </div>
+      }
+    </div>
+    @if (pendingLogout()) {
+      <app-confirm-dialog
+        event="logout"
+        (confirmedLogout)="confirmLogout()"
+        (dismissed)="pendingLogout.set(false)"
+      />
+    }
+  </div>
+</nav>

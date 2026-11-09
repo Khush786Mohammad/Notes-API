@@ -1,0 +1,144 @@
+:host {
+  box-sizing: border-box;
+  width: 50%;
+  flex: 0 0 50%;
+  min-width: 0;
+}
+
+.notes-editor {
+  box-sizing: border-box;
+  padding-top: 65px;
+  height: 600px;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  opacity: 1;
+  transform: translateX(0);
+  visibility: visible;
+  transition:
+    opacity 0.3s ease,
+    transform 0.45s ease,
+    visibility 0s linear 0s;
+}
+
+.notes-editor form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 20px;
+}
+
+:host(.reduce-editor-width) {
+  flex-basis: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition:
+    flex-basis 0.45s ease,
+    width 0.45s ease;
+}
+
+:host(.reduce-editor-width) .notes-editor {
+  padding-top: 0;
+  opacity: 0;
+  transform: translateX(24px);
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    transform 0.45s ease,
+    visibility 0s linear 0.45s;
+}
+
+.form-group input,
+.form-group textarea {
+  box-sizing: border-box;
+  background-color: var(--theme-muted);
+  color: var(--theme-text);
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  outline: none;
+}
+
+.title-input {
+  font-size: 20px !important;
+  letter-spacing: 0.01em;
+}
+
+.form-group textarea {
+  height: 420px !important;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  resize: none;
+}
+
+.action-buttons {
+  padding-right: 10px;
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--theme-muted);
+  color: var(--theme-text);
+}
+
+.btn:hover {
+  background-color: var(--theme-border);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.save-btn:hover {
+  background-color: #007bff;
+}
+
+.cancel-btn:hover {
+  color: #dc3545;
+}
+
+.icon-button {
+  width: 42px;
+  height: 42px;
+  justify-content: center;
+  padding: 8px;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.editor-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 15px;
+}
+
+.editor-title {
+  margin: 0;
+  color: var(--theme-text);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.visually-hidden {
+  display: none;
+}

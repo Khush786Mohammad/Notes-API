@@ -1,0 +1,70 @@
+<app-navbar (search)="searchNotes($event)" />
+<div class="notes-container">
+  <div
+    class="notes-list"
+    [ngClass]="{ 'notes-container-list': isEditorOpen() }"
+  >
+    <!-- Action Buttons -->
+    <div class="action-bar">
+      <button class="btn btn-primary" (click)="addNewNote()">
+        <span class="btn-icon">+</span> Add New Note
+      </button>
+      <label class="sort-control">
+        <span>Sort by</span>
+        <select
+          aria-label="Sort notes"
+          [value]="sortOption()"
+          (change)="onSortChange($event)"
+        >
+          <option value="crtDt-desc">Newest first</option>
+          <option value="crtDt-asc">Oldest first</option>
+          <option value="title-asc">Title (A–Z)</option>
+          <option value="title-desc">Title (Z–A)</option>
+        </select>
+      </label>
+    </div>
+
+    @if (notesData().length > 0) {
+      <div
+        class="notes-grid"
+        [ngClass]="{ 'notes-grid-full': !isEditorOpen() }"
+      >
+        @for (note of notesData(); track note.id) {
+          <notes-card
+            [note]="note"
+            (selected)="onSelectedNote($event)"
+            (deleted)="requestDelete($event)"
+          />
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <p>No notes found. Create a new one to get started!</p>
+      </div>
+    }
+  </div>
+  <notes-editor
+    [header]="editorHeader"
+    [mode]="editorMode"
+    [initialNote]="note"
+    [ngClass]="{ 'reduce-editor-width': !isEditorOpen() }"
+    (closed)="onCloseEditor()"
+    (saved)="saveNote($event)"
+  />
+</div>
+@if (pendingDelete(); as noteToDelete) {
+  <app-confirm-dialog
+    event="delete"
+    [noteTitle]="noteToDelete.title"
+    (confirmedDelete)="confirmDelete()"
+    (dismissed)="pendingDelete.set(null)"
+  />
+}
+@if (notesData().length !== 0) {
+  <app-pagination
+    [currentPage]="currentPage + 1"
+    [totalPages]="totalPages"
+    (pageSizeEmitter)="onPageSizeChange($event)"
+    (pageEmitter)="onPageToPage($event)"
+  />
+}
