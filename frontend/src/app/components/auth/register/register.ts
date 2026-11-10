@@ -65,7 +65,6 @@ export class Register implements OnInit {
       error: (err) => {
         this.isLoading.set(false);
         this.toastr.error(err?.error?.error ?? 'Registration Failed');
-        console.log(err);
       },
       complete: () => {
         this.isLoading.set(false);
