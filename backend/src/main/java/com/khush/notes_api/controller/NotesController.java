@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/user")
 @Tag(name = "Notes", description = "Manage Authenticated user's notes")
