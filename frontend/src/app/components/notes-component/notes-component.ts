@@ -96,7 +96,6 @@ export class NotesComponent implements OnInit {
   }
 
   searchNotes(searchKey: string) {
-    console.log(searchKey);
     this.searchKey = searchKey.trim();
     this.currentPage = 0;
     this.searchSubject.next(this.searchKey);
@@ -126,7 +125,6 @@ export class NotesComponent implements OnInit {
         this.fetchNotesData(this.currentPage, this.pageSize);
       },
       error: (err: any) => {
-        console.log(err);
         this.toastr.error(
           err?.error?.error ||
             (isUpdate ? 'Failed to update note' : 'Failed to add note'),
@@ -138,8 +136,8 @@ export class NotesComponent implements OnInit {
   deleteNote(id: number): void {
     this.notesService.deleteNoteById(id)?.subscribe({
       next: (response: any) => {
-        console.log(response);
         this.toastr.success(response?.message);
+        this.onCloseEditor();
         this.fetchNotesData(0, 8);
       },
       error: (err) => {
