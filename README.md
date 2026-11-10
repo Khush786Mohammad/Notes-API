@@ -1,9 +1,12 @@
 # Notes API
 
-A full-stack notes application. Users can register and sign in, then create, edit, search, sort, paginate, and delete their own notes.
+A full-stack notes application built with Spring Boot and Angular. Users can register and sign in, then create, edit, search, sort, paginate, and delete their own notes.
 
-- **Backend:** Spring Boot REST API with JWT authentication and MySQL
-- **Frontend:** Angular single-page application that consumes the API
+- **Live Application:** https://notes-api-frontend-lt0w.onrender.com
+- **Backend:** https://notes-api-f76j.onrender.com
+- **API Documentation:** [Swagger UI](https://notes-api-f76j.onrender.com/notes-api/v1/swagger-ui/index.html)
+
+- **Note:** The application is hosted on Render's free tier. Services may take some time to respond after periods of inactivity due to cold starts. 
 
 ## Features
 
@@ -19,10 +22,12 @@ A full-stack notes application. Users can register and sign in, then create, edi
 
 ## Tech Stack
 
-| Layer    | Technologies                                                                  |
-| -------- | ----------------------------------------------------------------------------- |
-| Backend  | Java, Spring Boot 4.x, Spring Security, JWT, Spring Data JPA / Hibernate, MySQL, Maven, Swagger / OpenAPI, SLF4J |
-| Frontend | Angular, TypeScript, npm                                                      |
+| Layer       | Technologies                                                                  |
+| --------    | ----------------------------------------------------------------------------- |
+| Backend     | Java, Spring Boot 4.x, Spring Security, JWT, Spring Data JPA / Hibernate, MySQL, Maven, Swagger / OpenAPI, SLF4J |
+| Frontend    | Angular, TypeScript, npm                                                      |
+| Database    | TiDB Cloud (MySQL compatible)                                                 |
+| Deployement | Render                                                                     |
 
 ## Prerequisites
 
@@ -75,8 +80,6 @@ note-api/
 └── README.md
 ```
 
-> Adjust the `backend/` and `frontend/` folder names above to match your repository.
-
 ## Getting Started
 
 Start the backend first, then the frontend.
@@ -88,17 +91,17 @@ cd backend
 ./mvnw spring-boot:run
 ```
 
-The API starts by default at:
-
-```text
-http://localhost:8080/notes-api/v1
-```
-
 Other backend commands:
 
 ```bash
 ./mvnw clean install   # build
 ./mvnw test            # run tests
+```
+
+The API starts by default at:
+
+```text
+http://localhost:8080/notes-api/v1
 ```
 
 ### 2. Frontend
@@ -130,43 +133,76 @@ Example:
 
 ```properties
 spring.application.name=notes-api
-server.port=8080
+server.port=${PORT:8080}
 server.servlet.context-path=/notes-api/v1
 
-spring.datasource.url=jdbc:mysql://localhost:3306/notesDB
-spring.datasource.username=your_username
-spring.datasource.password=your_password
+spring.datasource.name=datasource
+spring.datasource.url=${DB_URL}
+spring.datasource.username=${DB_USERNAME}
+spring.datasource.password=${DB_PASSWORD}
 
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 
-spring.security.jwt.securitykey=your_256_bit_secret
-spring.security.expiration_time=your_expiration_time
+spring.security.jwt.securitykey=${JWT_SECRET}
+spring.security.expiration_time=3600000
 ```
 
 ### Frontend
 
 The API base URL and context path are configured in the environment files:
 
-- `frontend/src/environments/environment.development.ts` is used by `npm start`.
-- `frontend/src/environments/environment.ts` is used by the production build.
+- `frontend/src/environments/environment.development.ts` is used for local development.
+- `frontend/src/environments/environment.production.ts` is used for production build.
 
-Both currently point to `http://localhost:8080` with the context path `/notes-api/v1`. Update these values to match your backend deployment.
+Development configuration points to local backend:
+
+```
+    export const environment = {
+    production: false,
+    baseUrl: 'http://localhost:8080',
+    contextPath: '/notes-api/v1',
+    expireDuration: 60
+    };
+```
+
+Development configuration points to deployed backend:
+
+```
+    export const environment = {
+    production: true,
+    baseUrl: 'https://notes-api-f76j.onrender.com',
+    contextPath: '/notes-api/v1',
+    expireDuration: 60
+};
+```
 
 The application stores the authentication token in browser local storage and uses it for authenticated requests. The session duration is also set in the environment files (60 minutes by default).
 
+## Deployment
+
+The application is deployed using the following services:
+
+```
+| Component           | Hosting             |
+| ------------------- | ------------------- |
+| Angular Frontend    | Render Static Site  |
+| Spring Boot Backend | Render Web Service  |
+| Database            | TiDB Cloud Starter  |
+
+```
 ## API Documentation
 
 Swagger UI:
 
 ```text
-http://localhost:8080/notes-api/v1/swagger-ui/index.html
+https://notes-api-f76j.onrender.com/notes-api/v1/swagger-ui/index.html
 ```
 
 OpenAPI specification:
 
 ```text
-http://localhost:8080/notes-api/v1/v3/api-docs
+https://notes-api-f76j.onrender.com/notes-api/v1/v3/api-docs
 ```
 
 The API uses JWT Bearer authentication. Use Swagger's **Authorize** button and provide a valid JWT before calling secured endpoints.
@@ -238,8 +274,6 @@ A user can have multiple notes, while each note belongs to one user.
 ## Future / Optional Features
 
 - Login using username or email
-- JWT logout / token invalidation strategy
 - Refresh tokens
-- Role-based authorization
 - Password change/reset
 - Email verification
