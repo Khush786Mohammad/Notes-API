@@ -45,11 +45,11 @@ export class AuthService implements OnDestroy {
     this.contextPath = env.contextPath;
     this.sessionTimeout = env.expireDuration;
 
-    // window.addEventListener('storage', (event) => {
-    //   if (event.key === this.tokenKey || event.key === this.expireKey) {
-    //     this.logout();
-    //   }
-    // });
+    window.addEventListener('storage', (event) => {
+      if (event.key === this.tokenKey || event.key === this.expireKey) {
+        this.logout();
+      }
+    });
   }
 
   loadUserDetails(): Observable<User | null> {

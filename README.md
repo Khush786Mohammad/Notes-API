@@ -3,7 +3,6 @@
 A full-stack notes application built with Spring Boot and Angular. Users can register and sign in, then create, edit, search, sort, paginate, and delete their own notes.
 
 - **Live Application:** https://notes-api-frontend-lt0w.onrender.com
-- **Backend:** https://notes-api-f76j.onrender.com
 - **API Documentation:** [Swagger UI](https://notes-api-f76j.onrender.com/notes-api/v1/swagger-ui/index.html)
 
 - **Note:** The application is hosted on Render's free tier. Services may take some time to respond after periods of inactivity due to cold starts. 
