@@ -29,14 +29,14 @@ npm-debug.log
 yarn-error.log
 
 # Angular caches and misc
-.angular/cache
-.sass-cache/
-connect.lock
-coverage/
-libpeerconnection.log
-testem.log
-typings/
-__screenshots__/
+**/.angular/cache
+**/.sass-cache/
+**/connect.lock
+**/coverage/
+**/libpeerconnection.log
+**/testem.log
+**/typings/
+**/__screenshots__/
 
 # ---------- Environment / secrets ----------
 .env
